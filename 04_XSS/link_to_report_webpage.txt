@@ -1,0 +1,1 @@
+Link to report webpage: https://docsify-this.net/?basePath=https://raw.githubusercontent.com/loanmir/505MI-Cybersecurity-LAB/main/04_XSS&homepage=04_XSS.md&toc=true#/
