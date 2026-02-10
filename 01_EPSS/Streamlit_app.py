@@ -66,6 +66,7 @@ if os.path.exists(data_file):
     try:
         history_df = pd.read_csv(data_file)
         history_df["date"] = pd.to_datetime(history_df["date"])
+        history_df.drop_duplicates(subset=["cve", "date"], keep="last", inplace=True)
     except Exception:
         # If file is corrupt, start fresh
         history_df = pd.DataFrame(columns=["cve", "epss", "percentile", "date"])
@@ -91,7 +92,7 @@ if st.sidebar.button("Fetch Latest EPSS Scores"):
 if st.sidebar.button("Backfill Historical Data"):
     st.info("Fetching historical data... (Slow mode enabled to prevent errors)")
     
-    # Stop at yesterday to avoid 422 errors for "future" data
+    
     yesterday = pd.to_datetime("today").normalize() - pd.Timedelta(days=1)
     
     # Ensure we don't try to backfill if START_DATE is in the future relative to yesterday
