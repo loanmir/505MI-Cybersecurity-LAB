@@ -185,7 +185,7 @@ By explicitly defining the target email, we force the query to match exactly one
 
 #### 3.1.2 Exploitation steps
 
- - ***Step 1:***  **Intercept & Analyze Traffic**
+ - **Step 1: Intercept & Analyze Traffic**
     
     1. Open Burp Suite &#8594; *Proxy* &#8594; *HTTP History*
     
@@ -195,7 +195,7 @@ By explicitly defining the target email, we force the query to match exactly one
     
     4. Send this request to the **Burp Repeater** to modify it without using the browser.
     
-  - ***Step2: *** **Fuzzing for Errors**
+  - **Step2: Fuzzing for Errors**
   
     1. In the Repeater, modify the `q` parameter by adding a product like `apple`.
     
@@ -211,7 +211,7 @@ By explicitly defining the target email, we force the query to match exactly one
     
     <br>
     
-  - ***Step 3: *** **Determining Column Count**
+  - **Step 3: Determining Column Count**
   
     To extract data, we must use the `UNION SELECT` operator. However, "UNION"" requires both queries to have the **exact same number of columns**. We determine this number by brute-forcing:
     
@@ -230,7 +230,7 @@ By explicitly defining the target email, we force the query to match exactly one
     
 <br>
 
-  - ***Step 4: *** **Extracting the Schema**
+  - **Step 4: Extracting the Schema**
   Now that we have the column count, we can replace one of the numbers with a command to read the database structure. In SQLite, the master table `sqlite_master` contains the SQL used to create all the tables (column named `sql`).
   
       1. **Construct Final Payload:** We replace the `1` with `sql` and query the `sqlite_master` table:
